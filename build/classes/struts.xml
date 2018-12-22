@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.devMode" value="true" />
+
+    <package name="action" namespace="/" extends="json-default">
+       
+        <global-allowed-methods>regex:.*</global-allowed-methods>
+        
+        <!-- 将用户发送的信息存入数据库 -->
+        <action name="send" class="Action.SendAction">
+          <result name="ok">/index.jsp</result>
+        </action>
+        <!-- 更具页面的要求来更新数据 -->
+        <action name="refresh" class="Action.RefreshAction">
+          <result name="ok">/index.jsp</result>
+        </action>
+        <!-- 更新已读 -->
+        <action name="updateIsReade" class="Action.UpdateIsReadeAction">
+          <result name="ok">/index.jsp</result>
+        </action>
+        
+        <!-- 接收消息 -->
+        <action name="accept" class="Action.AcceptMsgAction" >
+          <result name="success" type="json"></result>
+        </action>
+        
+    </package>
+</struts>
