@@ -17,6 +17,11 @@ public class AllInfo {
         super();
         // TODO Auto-generated constructor stub
     }
+    @Override
+    public String toString() {
+        return "AllInfo [SendName=" + SendName + ", Content=" + Content + ", ReceiveName=" + ReceiveName + ", IsRead="
+                + IsRead + ", Time=" + Time + "]";
+    }
     public AllInfo(String sendName, String content, String receiveName, String isread, String time) {
         super();
         SendName = sendName;

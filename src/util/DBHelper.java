@@ -11,7 +11,9 @@ import java.sql.*;
 public class DBHelper {
 	
 // 8.0.11
- private static final String URL = "jdbc:mysql://localhost:3306/server?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE&serverTimezone=Asia/Shanghai";	
+ private static final String URL = "jdbc:mysql://localhost:3306/server?useSSL=false&useUnicode=true"
+         + "&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE"
+         + "&serverTimezone=Asia/Shanghai";	
 	public static Connection getConnection() {
 		Connection conn = null;
 		//设置驱动
@@ -38,7 +40,6 @@ public class DBHelper {
 				e.printStackTrace();
 			}
 		}
-		
 		if(ps!=null) {
 			try {
 				ps.close();
@@ -47,7 +48,6 @@ public class DBHelper {
 				e.printStackTrace();
 			}
 		}
-		
 		if(conn!=null) {
 			try {
 				conn.close();
@@ -56,8 +56,6 @@ public class DBHelper {
 				e.printStackTrace();
 			}
 		}
-		
 	}
-	
-	
+		
 }

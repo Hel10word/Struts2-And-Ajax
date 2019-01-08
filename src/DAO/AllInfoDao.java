@@ -38,7 +38,7 @@ public class AllInfoDao extends BaseDao {
             DBHelper.closeResource(conn, ps, rs);
         }
     }
-    
+    //  更新用户聊天列表
     public Map<String, Integer> SearchMsgByReceiveNameOrSendName(String name) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         String sql = "select * from allinfo  where SendName = ? or ReceiveName = ?;";
@@ -121,5 +121,66 @@ public class AllInfoDao extends BaseDao {
         }
         return list;
     }
-
+    
+//    查询所有的数据 
+    public List<AllInfo> SelectAllData(){
+        List<AllInfo> list = new ArrayList<AllInfo>();
+        String sql = "select * from allinfo";
+        conn = DBHelper.getConnection();
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                AllInfo item = new AllInfo();
+                item.setSendName(rs.getString("SendName"));
+                item.setReceiveName(rs.getString("ReceiveName"));
+                item.setContent(rs.getString("Content"));
+                item.setTime(rs.getString("Time"));
+                item.setIsRead(rs.getString("IsRead"));
+                list.add(item);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBHelper.closeResource(conn, ps, rs);
+        }
+        return list;
+    }
+    
+    //  删除消息
+    public void DeleteMsg(String sendName,String receiveName,String time) {
+        String sql = "delete from allinfo where SendName = ? and ReceiveName = ? and Time = ?";
+        conn = DBHelper.getConnection();
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, sendName);
+            ps.setString(2, receiveName);
+            ps.setString(3, time);
+            ps.execute();
+            System.out.println("您成功删除了一条消息");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBHelper.closeResource(conn, ps, rs);
+        }
+    }
+    
+    //  服务器端的修改信息
+    public void ServerUpdateMsg(AllInfo allInfo) {
+        String sql = "update allinfo set IsRead = ?,Content = ? where SendName = ? and ReceiveName = ? and Time = ?";
+        conn = DBHelper.getConnection();
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,allInfo.getIsRead());
+            ps.setString(2,allInfo.getContent());
+            ps.setString(3,allInfo.getSendName());
+            ps.setString(4,allInfo.getReceiveName());
+            ps.setString(5,allInfo.getTime());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBHelper.closeResource(conn, ps, rs);
+        }
+    }
 }

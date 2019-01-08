@@ -23,10 +23,25 @@
         <action name="updateIsReade" class="Action.UpdateIsReadeAction">
           <result name="ok">/index.jsp</result>
         </action>
+        <!-- 删除消息 -->
+        <action name="delete" class="Action.DeleteMsgAction">
+          <result name="success" type="json"></result>
+        </action>
+        <!-- 服务端修改消息 -->
+        <action name="serverUpdate" class="Action.ServerUpdateMsgAction">
+          <result name="success" type="json"></result>
+        </action>
         
         <!-- 接收消息 -->
         <action name="accept" class="Action.AcceptMsgAction" >
           <result name="success" type="json"></result>
+        </action>
+        
+        <!-- 查询所有信息 -->
+        <action name="select" class="Action.SelectAction" >
+          <result name="success" type="json">
+            <param name="root">list</param>
+          </result>
         </action>
         
     </package>

@@ -23,7 +23,8 @@
                     <i class="iconfont icon-yonghu"></i>
                     <span>QQ</span>
                 </div>
-                <div class="chat-close" style="float: right; margin: 10px 10px 0 0;font-size: 14px">新建</div>
+                <div class="chat-close" id="newMsg" style="float: right; margin: 10px 10px 0 0;font-size: 14px">新建</div>
+                <div class="chat-close" id="server" style="float: right; margin: 10px 10px 0 0;font-size: 14px">后台</div>
             </div>
             <div class="chatBox-head-two">
                 <div class="chat-return"><i class="iconfont icon-fanhui" style="color: #F0F0F0;font-weight: 800;font-size: 20px;"></i></div>
@@ -93,13 +94,13 @@
             return false;
         }else{
             var userName = localStorage.getItem("KeyUserName");
-            if(userName!=null){
+            if(typeof(userName)=='string'&&userName!='null'&&userName.length!=0){
                 $('.chatBox-head-one span').text(userName);
             }else{
                 userName = prompt("请输入您的用户名","小王");
                 localStorage.setItem("KeyUserName",userName);
                 RefreshUserList(userName);
-            }
+            } 
         }
         $("#userName").click(function(){
             if(confirm("是否要修改用户名?")){
@@ -158,11 +159,25 @@
             $(this).css("padding", 0);
         }
     });
+    //进入服务端
+    $("#server").click(function () {
+    	var username = prompt("请输入您的用户名","");
+    	if(typeof(username)!='string')return;
+    	var password = prompt("请输入您的密码","");
+    	if(confirm("是否要进入服务端")){
+    		if(username!="admin"||password!="admin"){
+    			alert("用户名或密码错误!");
+    		}else{
+    			window.location.href="server.jsp";
+    		}
+    	}else{
+    		window.location.reload();
+    	}
+    })
 
 
     //打开/关闭聊天框    新建消息
-
-    $(".chat-close").click(function () {
+    $("#newMsg").click(function () {
         $(".chatBox-head-three").toggle(1);
         $(".chatBox-head-two").toggle(false);
         $(".chatBox-head-one").toggle(false);
